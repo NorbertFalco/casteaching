@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\VideosController;
+use App\Models\Video;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,12 +19,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+Route::get('/videos/{id}', [VideosController::class,'show']);
+
+//Route::get('/videos/1', function () {
+//    //return 'Ubuntu 101 | Here description | December 13 ';
+//    $video = Video::find(1);
+//    // dd($video-> title);
+//    // $video = new StdClass();
+//    // $video->title = 'Ubuntu 101';
+//    // $video->description = 'Here description';
+//    // $video->published_at = 'December 13';
+//
+//    return view('videos.show',[
+//        'video' => $video
+//
+//    ]); // CRUD -> RETRIEVE -> només un video
+//});
