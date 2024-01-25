@@ -21,27 +21,20 @@ Route::get('/', function () {
 
 Route::get('/videos/{id}', [VideosController::class,'show']);
 
-//Route::get('/videos/1', function () {
-//    //return 'Ubuntu 101 | Here description | December 13 ';
-//    $video = Video::find(1);
-//    // dd($video-> title);
-//    // $video = new StdClass();
-//    // $video->title = 'Ubuntu 101';
-//    // $video->description = 'Here description';
-//    // $video->published_at = 'December 13';
-//
-//    return view('videos.show',[
-//        'video' => $video
-//
-//    ]); // CRUD -> RETRIEVE -> només un video
-//});
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'),
+    'verified',])->group(function () {
+    Route::get('/dashboard', function () {return view('dashboard');
     })->name('dashboard');
+});
+
+Route::get('/prova', function(){
+    Video::create([
+        'title' => 'Ubuntu 101',
+        'description' => '# Here description',
+        'url' => 'https://youtu.be/w8j07_DBl_I',
+        'published_at' => Carbon::parse('December 13, 2020 8:00pm'),
+        'previous' => null,
+        'next' => null,
+        'series_id' => 1
+    ]);
 });

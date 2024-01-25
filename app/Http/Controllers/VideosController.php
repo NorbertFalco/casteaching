@@ -3,20 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
-use Illuminate\Http\Request;
 
 class VideosController extends Controller
 {
+
+    public static function testedBy()
+    {
+        return VideoTest::class;
+    }
+
     public function show($id)
     {
-//      return 'Ubuntu 101 | Here description | December 13';
-//      dd($video-> title);
-//      $video = new StdClass();
-//      $video->title = 'Ubuntu 101';
-//      $video->description = 'Here description';
-//      $video->published_at = 'December 13';
         return view('videos.show',[
-            'video' => Video::find($id)
-        ]); // CRUD -> RETRIEVE -> només un video
+            'video' => Video::findOrFail($id)
+        ]);
     }
 }
