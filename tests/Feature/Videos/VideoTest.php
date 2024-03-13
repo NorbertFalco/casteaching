@@ -5,7 +5,6 @@ namespace Tests\Feature\Videos;
 use App\Models\Video;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 /**
@@ -35,7 +34,7 @@ class VideoTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Ubuntu 101');
         $response->assertSee('Here description');
-        $response->assertSee('December 13');
+        $response->assertSee('13 de desembre de 2020');
     }
 
     /**
