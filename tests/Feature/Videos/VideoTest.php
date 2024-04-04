@@ -19,6 +19,7 @@ class VideoTest extends TestCase
      */
     public function users_can_view_videos()
     {
+        app()->setLocale('ca');
         $video = Video::create([
             'title' => 'Ubuntu 101',
             'description' => '# Here description',
