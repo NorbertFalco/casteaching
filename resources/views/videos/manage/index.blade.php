@@ -2,18 +2,46 @@
 
     <div class="px-4 sm:px-6 lg:px-8">
 
+        @if(session()->has('status'))
+            <!-- Alert -->
+            <div class="rounded-md bg-green-50 p-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-green-800">Successfully created</p>
+                </div>
+                <div class="ml-auto pl-3">
+                    <div class="-mx-1.5 -my-1.5">
+                        <button type="button" class="inline-flex rounded-md bg-green-50 p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50">
+                            <span class="sr-only">Dismiss</span>
+                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- End Alert -->
+        @endif
         @can('videos_manage_create')
                 <div class="md:grid md:grid-cols-1 md:gap-6">
                     <div class="md:col-span-1">
                         <h3 class="text-gray-900 font-medium text-lg leading-6">Vídeos</h3>
-                        <p class="text-gray-600 text-sm mt-1">Informació bàsica del video</p>
+                        <p class="text-gray-600 text-sm mt-1">
+                            Informació bàsica del video</p>
                     </div>
                     <form class="px-4 py-5" data-qa="form_video_create" action="" method="POST">
+                        @csrf
                         <div class="shadow sm:rounded-md sm:overflow-hidden bg-white">
                             <div class="py-5">
                                 <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
                                 <div class="mt-1">
-                                    <input type="text" name="title" id="title"
+                                    <input required type="text" name="title" id="title"
                                            class="w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 placeholder:text-gray-500" placeholder="Títol del video">
                                 </div>
                                 <p class="mt-2 text-sm text-gray-500">Títol curt del nostre video</p>
@@ -22,7 +50,7 @@
                                 <label for="description"
                                        class="block text-sm font-medium text-gray-700">Description</label>
                                 <div class="mt-1">
-                                    <textarea name="description" id="description" cols="30" rows="10"
+                                    <textarea required name="description" id="description" cols="30" rows="10"
                                               class="w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 placeholder:text-gray-500" placeholder="Descripció del video"></textarea>
                                 </div>
                                 <p class="mt-2 text-sm text-gray-500">Descripció del video</p>
@@ -34,7 +62,7 @@
                                 class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-300 text-gray-500 text-sm">
                                 https://
                             </span>
-                                    <input id="url" name="url" type="text"
+                                    <input required id="url" name="url" type="url"
                                            class="w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300"
                                            placeholder="tubeme.acacha.org/php">
                                 </div>

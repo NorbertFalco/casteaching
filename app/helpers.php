@@ -56,6 +56,21 @@ if (! function_exists('create_superadmin_user')) {
     }
 }
 
+if (! function_exists('create_regular_user')) {
+    function create_regular_user()
+    {
+        $user = User::create([
+            'name' => 'John Doe',
+            'email' => 'johndoe@casteaching.com',
+            'password' => Hash::make('12345678')
+        ]);
+
+        add_personal_team($user);
+
+        return $user;
+    }
+}
+
 if (! function_exists('create_video_manager_user')) {
     function create_video_manager_user(){
         $user = User::create([
@@ -157,3 +172,79 @@ if (! function_exists('create_sample_videos')) {
         return [$video1, $video2, $video3];
     }
 }
+
+class DomainObject implements ArrayAccess, JsonSerializable
+{
+    private $data = [];
+
+    /**
+     * DomainObject constructor.
+     */
+
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
+
+    public function __get($name)
+    {
+        if (isset($this->data[$name])) {
+            return $this->data[$name];
+        }
+    }
+
+    public function __set($name, $value)
+    {
+        $this->data[$name] = $value;
+    }
+
+    public function offsetExists($offset)
+    {
+        return array_key_exists($offset, $this->data);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $this->data[$offset] = $value;
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->data[$offset];
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->data[$offset]);
+    }
+
+    public function __toString()
+    {
+        return (string)collect($this->data);
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by json_encode
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize()
+    {
+        return $this->data;
+
+    }
+}
+
+
+
+if (! function_exists('objectify')) {
+    function objectify($array)
+    {
+        return new DomainObject($array);
+    }
+}
+
+
