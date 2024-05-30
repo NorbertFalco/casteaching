@@ -35,7 +35,7 @@
                         <p class="text-gray-600 text-sm mt-1">
                             Informació bàsica del video</p>
                     </div>
-                    <form class="px-4 py-5" data-qa="form_video_create" action="" method="POST">
+                    <form data-qa="form_video_create" action="" method="POST">
                         @csrf
                         <div class="shadow sm:rounded-md sm:overflow-hidden bg-white">
                             <div class="py-5">
@@ -122,13 +122,20 @@
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                             {{ $video->url }}</td>
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
-                                            <a href="/videos/{{$video->id}}" target="_blank"
-                                               class="text-indigo-600 hover:text-indigo-900">
-                                                Show</a>
-                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                                                Edit</a>
-                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                                                Delete</a>
+                                            <a href="/videos/{{$video->id}}" target="_blank" class="text-indigo-600 hover:text-indigo-900">
+                                                Show
+                                            </a>
+                                            <a href="/manage/videos/{{$video->id}}" target="_blank" class="text-indigo-600 hover:text-indigo-900">
+                                                Edit
+                                            </a>
+                                            <form class="inline" action="/manage/videos/{{$video->id}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <a href="/videos/{{$video->id}}" class="text-indigo-600 hover:text-indigo-900"
+                                                    onclick="event.preventDefault();
+                                                    this.closest('form').submit();">Delete</a>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
