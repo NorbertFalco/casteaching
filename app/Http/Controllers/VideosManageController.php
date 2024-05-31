@@ -43,18 +43,11 @@ class VideosManageController extends Controller
 
     }
 
-    /** R -> NO LLISTA -> Individual -> */
-    public function show(string $id)
-    {
-        //
-    }
-
     public function edit(string $id)
     {
         return view('videos.manage.edit', ['video' => Video::findOrFail($id) ]);
     }
 
-    /** U -> update -> Processarà el Form i guardarà les modificacions */
     public function update(Request $request, string $id)
     {
         $video = Video::findOrFail($id);
@@ -67,7 +60,6 @@ class VideosManageController extends Controller
         return redirect()->route('manage.videos');
     }
 
-    /** D -> DELETE */
     public function destroy(string $id)
     {
         Video::find($id)->delete();
